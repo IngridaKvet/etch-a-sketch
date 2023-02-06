@@ -1,61 +1,41 @@
 
-
-
 const sketchcontainer = document.querySelector('.sketchpad');
-
-
-
 
 let i = 0;
 let y =0;
-function createDivs(numOfDivs){
 
-let oneDivSize = 534/numOfDivs + "px";
+function createDivs(numOfDivs){
+    let oneDivSize = 534/numOfDivs + "px";
 
     while(i<numOfDivs){
-   
-const newRow = document.createElement("div");
-newRow.setAttribute("id", "DivRow");
-newRow.style.height = oneDivSize;
+        const newRow = document.createElement("div");
+        newRow.setAttribute("id", "DivRow");
+        newRow.style.height = oneDivSize;
+        newRow.classList.add("newDivStyle");
+        y=0;
 
-
-newRow.classList.add("newDivStyle");
-y=0;
-
-    while(y<numOfDivs){
-   
-
-    const newDiv = document.createElement("div");
-    newDiv.setAttribute("id", "Div1");
-    
-    //newDiv.classList.add("newDivStyle");
-    
-
-    newDiv.style.width = oneDivSize; 
-    newDiv.style.height = oneDivSize; 
-    
-    
-    newRow.appendChild(newDiv);
-   // sketchcontainer.appendChild(newRow);
-    
+        while(y<numOfDivs){
+            const newDiv = document.createElement("div");
+            newDiv.setAttribute("class", "allDivs");
+            newDiv.setAttribute("id", "Div1");
+            newDiv.style.width = oneDivSize; 
+            newDiv.style.height = oneDivSize; 
+            newRow.appendChild(newDiv);
             y++;
-        }
-sketchcontainer.appendChild(newRow);
-i++
-
+            }
+    sketchcontainer.appendChild(newRow);
+    i++
     }
-    }
-
-
+ }
 
 function deleteDivs( ){
-    const boxes = document.querySelectorAll('#Div1');
-    boxes.forEach(Div1 => {
+    const divsToDelete = document.querySelectorAll('#Div1');
+    divsToDelete.forEach(Div1 => {
       Div1.remove();
     });
     
-    const boxes2 = document.querySelectorAll('#DivRow');
-    boxes2.forEach(DivRow => {
+    const divsToDelete2 = document.querySelectorAll('#DivRow');
+    divsToDelete2.forEach(DivRow => {
       DivRow.remove();
     });
     i=0;
@@ -63,13 +43,18 @@ function deleteDivs( ){
 
 
 
-    const slider = document.getElementById("myRange");
+const slider = document.getElementById("myRange");
 const sliderText = document.getElementById('sliderText');
 let numOfDivs;
 
 numOfDivs = parseInt(slider.value);
-
+createDivs(numOfDivs);
 sliderText.innerHTML = slider.value + " X " + slider.value //current
+
+//fit the border to content
+document.querySelector('.sketchpad').style.width = "fit-content";
+
+
 
 slider.oninput = function() {
     deleteDivs();
@@ -77,52 +62,110 @@ slider.oninput = function() {
     sliderText.innerHTML = this.value + " X " + this.value;; //update
    
      numOfDivs =parseInt(slider.value) ;
-      createDivs(numOfDivs)
+    createDivs(numOfDivs)
+
+    //slider sketchpad dalis.
+    const bigpad = document.querySelector('.sketchpad');
+    const elements = document.querySelectorAll('#Div1');
    
+          function bigpressed(){
+           const divPressed = (e) => {
+             e.target.style.backgroundColor = document.getElementById("myColor").value;
+             function bigPressed2(){
+                elements.forEach(Div1 => Div1.removeEventListener('mouseenter', divPressed))
+             }
+             
+             
+             bigpad.addEventListener('mouseup', bigPressed2);
+             }
+         
+              elements.forEach(Div1 => Div1.addEventListener('mouseenter', divPressed))
+         
+         }
+         
+   bigpad.addEventListener('mousedown', bigpressed);
 } 
 
 
 
-/*
-Say, you have stored user's input in a variable called numOfDivs.
+// color pickers
 
-    In HTML add a div with a .container class and store that in a variable, say containerEl in JavaScript.
+document.getElementById("colorBtn").addEventListener("click", function() {  
+    document.getElementById("myColor").focus();
+    document.getElementById("myColor").click();
+  });
 
-    Create a function, say, createDivs that accepts a parameter num.
-
-    Write a loop, say a FOR loop, with condition i < num.
-
-    Create a div using Document.createElement().
-
-    Write a CSS rule with selector div to add dimensions to the DIV.
-
-    Add that class to the DIV created in step #3 using classList.add.
-
-    Append the created div to containerEl using Node.appendChild().
-
-    Call the createDivs passing it numOfDivs as the arugment.
-
-Note that #7 also should happen inside the FOR loop block itself.
-
-Best of luck!
-
-
-
-
-
-function addElement() {
-    // create a new div element
-    const newDiv = document.createElement("div");
+  document.getElementById("backgroundBtn").addEventListener("click", function() {  
+    document.getElementById("myColor2").focus();
+    document.getElementById("myColor2").click();
+  });
   
-    // and give it some content
-    const newContent = document.createTextNode("Hi there and greetings!");
-  
-    // add the text node to the newly created div
-    newDiv.appendChild(newContent);
-  
-    // add the newly created element and its content into the DOM
-    const currentDiv = document.getElementById("div1");
-    document.body.insertBefore(newDiv, currentDiv);
+  document.getElementById("colorBtn").style.backgroundColor = "black";
+  const colorPicker = document.getElementById("myColor");
+  colorPicker.oninput = function() {
+    document.getElementById("colorBtn").style.backgroundColor = document.getElementById("myColor").value;
   }
 
-  */
+  document.getElementById("backgroundBtn").style.backgroundColor = "white";
+  const colorPicker2 = document.getElementById("myColor2");
+  colorPicker2.oninput = function() {
+    document.getElementById("backgroundBtn").style.backgroundColor = document.getElementById("myColor2").value;
+    document.querySelectorAll("#Div1").forEach(Div1 => {
+      Div1.style.backgroundColor = document.getElementById("myColor2").value;
+  });
+  }
+
+
+
+
+ 
+//sketchpad drawing before user input
+const bigpad = document.querySelector('.sketchpad');
+ const elements = document.querySelectorAll('#Div1');
+
+       function bigpressed(){
+        const divPressed = (e) => {
+          e.target.style.backgroundColor = document.getElementById("myColor").value;
+          function bigPressed2(){
+             elements.forEach(Div1 => Div1.removeEventListener('mouseenter', divPressed))
+          }
+          
+          
+          bigpad.addEventListener('mouseup', bigPressed2);
+          }
+      
+           elements.forEach(Div1 => Div1.addEventListener('mouseenter', divPressed))
+      
+      }
+      
+bigpad.addEventListener('mousedown', bigpressed);
+
+
+
+
+// clear and erase part
+// eraser
+document.querySelector("#eraserBtn").addEventListener("click", erase)
+function erase(){
+  document.querySelector("#eraserBtn").style.backgroundColor = "#92ebf0"
+  const divPressed = (e) => {
+    e.target.style.backgroundColor = document.getElementById("myColor").value = "white";
+    }
+  
+    elements.forEach(Div1 => Div1.addEventListener('mouseenter', divPressed));
+}
+
+
+//clear
+document.querySelector("#clearBtn").addEventListener("click", clear)
+function clear(){
+ 
+
+  let clearColor = document.getElementById("backgroundBtn").style.backgroundColor = "white";
+  document.querySelectorAll("#Div1").forEach(Div1 => {
+    Div1.style.backgroundColor = clearColor;
+});
+}
+
+//
+    

@@ -82,6 +82,7 @@ button{
     height: 534px;
     display: flex;
     flex-direction: column;
+    user-select: none;
 
 }
 
@@ -127,39 +128,39 @@ button{
     background: #000; /* Green background */
     cursor: pointer; /* Cursor on hover */
   }
+
+#sliderText{
+  font-size: 30px;
+  text-align: center;
+}
   
 .newDivStyle{
-    background-color: coral;
+
     display:flex;
     flex-direction: row;
 }
-/*
-  <!DOCTYPE html>
-<html>
-<style>
-.myStyle {
-  
-  padding: 16px;
+
+#colorBtn{
+  padding: 0;
 }
-</style>
 
-<body>
-<h1>The DOMToken Object</h1>
-<h2>The add() Method</h2>
-
-<button onclick="myFunction()">Add</button>
-<p>Click "Add" to add the "myStyle" class to myDIV.</p>
-
-<div id="myDIV">
-<p>I am a myDIV.</p>
-</div>
-
-<script>
-function myFunction() {
-  const list = document.getElementById("myDIV").classList;
-  list.add("myStyle");
+#myColor2,
+#myColor{
+position: absolute;
+  left: -auto;
+  top: auto;
+  width: 1px;
+  height: 1x;
+  overflow: hidden;
+  opacity: 0;
 }
-</script>
 
-</body>
-</html>*/
+#colorModeBtn:hover,
+#rainbowModeBtn:hover,
+#darkenModeBtn:hover,
+#lightenModeBtn:hover,
+#eraserBtn:hover,
+#clearBtn:hover{
+  background-color: #92ebf0;
+}
+
