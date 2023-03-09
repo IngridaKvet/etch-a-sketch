@@ -1,10 +1,8 @@
 //running without user input
 document.querySelector("#colorModeBtn").style.backgroundColor = "#92ebf0";
-//const bigpad = document.querySelector('.sketchpad');     
+  
+let state = false;
 
-
-//bigpad.addEventListener('mouseover', function(){colorModeInitial()});
- //bigpad.addEventListener('mousedown', function(){drawSolidColor()});
  let bigpad = document.querySelector('.sketchpad');
 bigpad.addEventListener('mousedown', bigpressed);
  
@@ -38,25 +36,6 @@ buttonpressed.forEach(buttons => buttons.addEventListener('click', () => {
   
 
   } 
-
-
-
-/*
-// removing event listener to remove residue reaction
-const buttonpressed = document.querySelectorAll('.buttons');
-buttonpressed.forEach(buttons => buttons.addEventListener('click', () => {
-
-  const bigpad = document.querySelector('.sketchpad');
-
-    bigpad.removeEventListener('mouseover', function(){colorModeInitial()});
-  //  bigpad.removeEventListener('mouseover', function(){colorModeInitial()})
- }))
-};
-*/
-
-
-
-
 
 //-----------------------------------------
 let i = 0;
@@ -115,14 +94,15 @@ slider.oninput = function() {
    
      numOfDivs =parseInt(slider.value) ;
     createDivs(numOfDivs)
+
+    state = false;
+
+  document.getElementById("toggleGridLines").style.backgroundColor = "white";
 } 
 
 //color mode button
 document.querySelector("#colorModeBtn").addEventListener("click", function(){colorMode()})
 function colorMode(){
-
-
-
   document.getElementById("eraserBtn").style.backgroundColor = "white";
   document.getElementById("clearBtn").style.backgroundColor = "white";
   document.getElementById("rainbowModeBtn").style.backgroundColor = "white";
@@ -130,16 +110,8 @@ function colorMode(){
   document.getElementById("lightenModeBtn").style.backgroundColor = "white";
   document.querySelector("#colorModeBtn").style.backgroundColor = "#92ebf0";
 
- 
  let bigpad = document.querySelector('.sketchpad');   
  const elements = document.querySelectorAll('#Div1');
-
-
-
-
-
-
-
 
   function bigpressed(){
     const divPressed = (e) => {
@@ -214,7 +186,6 @@ buttonpressed.forEach(buttons => buttons.addEventListener('click', () => {
  }))
 };
 
-
 // color pickers
 
 document.getElementById("colorBtn").addEventListener("click", function() {  
@@ -237,17 +208,12 @@ document.getElementById("colorBtn").addEventListener("click", function() {
   const colorPicker2 = document.getElementById("myColor2");
   colorPicker2.oninput = function() {
    
-
-    //jei pakeisti tik nepakeistus langelius?
-   
     document.querySelectorAll("#Div1").forEach(Div1 => {
     
       Div1.style.backgroundColor = document.getElementById("myColor2").value;
   });
 
  document.getElementById("backgroundBtn").style.backgroundColor = document.getElementById("myColor2").value;
-//console.log(document.getElementById("backgroundBtn").style.backgroundColor )
-  
   }
 
 // eraser
@@ -290,8 +256,6 @@ buttonpressed.forEach(buttons => buttons.addEventListener('click', () => {
 
     bigpad.removeEventListener('mousedown', bigpressed);
  }))
-
-   
 }
 
 
@@ -400,8 +364,6 @@ function useDarkenMode(){
   function darkendiv(){
     const elements = document.querySelectorAll('#Div1');
     const divPressed4 = (e) => {
- 
-console.log(e.target.style.backgroundColor)
 
  let divColor = e.target.style.backgroundColor;
 
@@ -437,7 +399,6 @@ console.log(e.target.style.backgroundColor)
   }
 
 let newDivColor = "rgb(" + arrayOfNUm[0].toString() + "," + arrayOfNUm[1].toString() + "," + arrayOfNUm[2].toString() + ")"
-console.log(newDivColor)
 
 e.target.style.backgroundColor = newDivColor;
 
@@ -466,7 +427,6 @@ buttonpressed.forEach(buttons => buttons.addEventListener('click', () => {
 }
 
 // Toggle grid
-let state = false;
 
 document.querySelector("#toggleGridLines").addEventListener('click', () => {
   state = !state;
@@ -493,34 +453,3 @@ function moveLeft() {
   const elements = document.querySelectorAll('#Div1');
   elements.forEach(Div1 => Div1.style.border = "none")
 }
-
-
-/*
-
-function useGrid(){
-  
-  document.querySelector("#toggleGridLines").style.backgroundColor = "#92ebf0";
-  const elements = document.querySelectorAll('#Div1');
-  elements.forEach(Div1 => Div1.style.border = "thin solid #000000");
-  state = !state
-  state = false;
-*/
-/*
-  const elements = document.querySelectorAll('#Div1');
-  elements.forEach(Div1 => Div1.style.border = "thin solid #000000")
-
-  document.querySelector("#toggleGridLines").addEventListener("click", removeGrid)
-function removeGrid(){
-
-const elements = document.querySelectorAll('#Div1');
-  elements.forEach(Div1 => Div1.style.border = "none")
- // document.querySelector("#toggleGridLines").removeEventListener("click", removeGrid)
-  document.querySelector("#toggleGridLines").style.backgroundColor = "white";
-
-}
-*/
-
-
-
-
-
