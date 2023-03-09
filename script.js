@@ -1,8 +1,64 @@
 //running without user input
 document.querySelector("#colorModeBtn").style.backgroundColor = "#92ebf0";
-const bigpad = document.querySelector('.sketchpad');      
- //bigpad.addEventListener('mousedown', function(){drawSolidColor()});
+//const bigpad = document.querySelector('.sketchpad');     
 
+
+//bigpad.addEventListener('mouseover', function(){colorModeInitial()});
+ //bigpad.addEventListener('mousedown', function(){drawSolidColor()});
+ let bigpad = document.querySelector('.sketchpad');
+bigpad.addEventListener('mousedown', bigpressed);
+ 
+   
+
+
+  function bigpressed(){
+    const divPressed = (e) => {
+      
+
+      e.target.style.backgroundColor = document.getElementById("myColor").value;
+      function bigPressed2(){
+         
+       elements.forEach(Div1 => Div1.removeEventListener('mouseenter', divPressed))
+
+      }
+      
+      bigpad.addEventListener('mouseup', bigPressed2);
+      }
+   const elements = document.querySelectorAll('#Div1');
+       elements.forEach(Div1 => Div1.addEventListener('mouseenter', divPressed))
+  
+
+       const buttonpressed = document.querySelectorAll('.buttons');
+buttonpressed.forEach(buttons => buttons.addEventListener('click', () => {
+
+  const bigpad = document.querySelector('.sketchpad');
+
+    bigpad.removeEventListener('mousedown', bigpressed);
+ }))
+  
+
+  } 
+
+
+
+/*
+// removing event listener to remove residue reaction
+const buttonpressed = document.querySelectorAll('.buttons');
+buttonpressed.forEach(buttons => buttons.addEventListener('click', () => {
+
+  const bigpad = document.querySelector('.sketchpad');
+
+    bigpad.removeEventListener('mouseover', function(){colorModeInitial()});
+  //  bigpad.removeEventListener('mouseover', function(){colorModeInitial()})
+ }))
+};
+*/
+
+
+
+
+
+//-----------------------------------------
 let i = 0;
 let y =0;
 
@@ -64,6 +120,9 @@ slider.oninput = function() {
 //color mode button
 document.querySelector("#colorModeBtn").addEventListener("click", function(){colorMode()})
 function colorMode(){
+
+
+
   document.getElementById("eraserBtn").style.backgroundColor = "white";
   document.getElementById("clearBtn").style.backgroundColor = "white";
   document.getElementById("rainbowModeBtn").style.backgroundColor = "white";
@@ -74,6 +133,13 @@ function colorMode(){
  
  let bigpad = document.querySelector('.sketchpad');   
  const elements = document.querySelectorAll('#Div1');
+
+
+
+
+
+
+
 
   function bigpressed(){
     const divPressed = (e) => {
@@ -115,6 +181,9 @@ function rainbowMode(){
 
  const bigpad = document.querySelector('.sketchpad');      
  const elements = document.querySelectorAll('#Div1');
+
+ bigpad.removeEventListener('mouseover', function(){colorModeInitial()});
+
 
   function bigpressed(){
     const divPressed = (e) => {
@@ -184,7 +253,6 @@ document.getElementById("colorBtn").addEventListener("click", function() {
 // eraser
 document.querySelector("#eraserBtn").addEventListener("click", erase)
 function erase(){
- 
   document.getElementById("colorModeBtn").style.backgroundColor = "white";
   document.getElementById("rainbowModeBtn").style.backgroundColor = "white";
   document.getElementById("darkenModeBtn").style.backgroundColor = "white";
@@ -397,29 +465,60 @@ buttonpressed.forEach(buttons => buttons.addEventListener('click', () => {
  }))
 }
 
-// Darken mode
-document.querySelector("#toggleGridLines").addEventListener("click", useGrid)
-function useGrid(){
+// Toggle grid
+let state = false;
+
+document.querySelector("#toggleGridLines").addEventListener('click', () => {
+  state = !state;
+
+  document.getElementById("colorModeBtn").style.backgroundColor = "white";
+  document.getElementById("rainbowModeBtn").style.backgroundColor = "white";
+  document.getElementById("darkenModeBtn").style.backgroundColor = "white";
+  document.getElementById("lightenModeBtn").style.backgroundColor = "white";
+  document.getElementById("eraserBtn").style.backgroundColor = "white";
+  document.getElementById("clearBtn").style.backgroundColor = "white";
+
+  if (state) moveRight();
+  else moveLeft();
+});
+
+
+function moveRight() {
   document.querySelector("#toggleGridLines").style.backgroundColor = "#92ebf0";
+  const elements = document.querySelectorAll('#Div1');
+  elements.forEach(Div1 => Div1.style.border = "1px solid #000000");
+ }
+function moveLeft() { 
+  document.querySelector("#toggleGridLines").style.backgroundColor = "white";
+  const elements = document.querySelectorAll('#Div1');
+  elements.forEach(Div1 => Div1.style.border = "none")
+}
 
 
+/*
 
+function useGrid(){
+  
+  document.querySelector("#toggleGridLines").style.backgroundColor = "#92ebf0";
+  const elements = document.querySelectorAll('#Div1');
+  elements.forEach(Div1 => Div1.style.border = "thin solid #000000");
+  state = !state
+  state = false;
+*/
+/*
   const elements = document.querySelectorAll('#Div1');
   elements.forEach(Div1 => Div1.style.border = "thin solid #000000")
 
   document.querySelector("#toggleGridLines").addEventListener("click", removeGrid)
 function removeGrid(){
-  
 
+const elements = document.querySelectorAll('#Div1');
+  elements.forEach(Div1 => Div1.style.border = "none")
+ // document.querySelector("#toggleGridLines").removeEventListener("click", removeGrid)
+  document.querySelector("#toggleGridLines").style.backgroundColor = "white";
 
 }
-
-
-
-}
-
-
-
+*/
 
 
 
